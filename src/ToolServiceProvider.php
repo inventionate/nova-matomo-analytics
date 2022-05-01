@@ -40,9 +40,13 @@ class ToolServiceProvider extends ServiceProvider
             return;
         }
 
+        Nova::router(['nova', Authorize::class], 'MatomoAnalytics')
+            ->group(__DIR__.'/../routes/inertia.php');
+
         Route::middleware(['nova', Authorize::class])
-                ->prefix('nova-vendor/matomo-analytics')
-                ->group(__DIR__.'/../routes/api.php');
+            ->prefix('nova-vendor/matomo-analytics')
+            ->group(__DIR__.'/../routes/api.php');
+
     }
 
     /**

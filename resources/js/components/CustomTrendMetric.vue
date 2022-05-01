@@ -14,7 +14,7 @@
 
 <script>
     import _ from 'lodash'
-    import { InteractsWithDates, Minimum } from 'laravel-nova'
+    import { MetricBehavior } from 'laravel-nova'
     import BaseTrendMetric from './Base/TrendMetric'
 
     export default {
@@ -100,6 +100,22 @@
             hasRanges() {
                 return this.card.ranges.length > 0
             },
+
+    /**
+     * Get the user's local timezone.
+     */
+    userTimezone() {
+      return Nova.config('userTimezone') || Nova.config('timezone')
+    },
+
+    /**
+     * Determine if the user is used to 12 hour time.
+     */
+    usesTwelveHourTime() {
+      let locale = new Intl.DateTimeFormat().resolvedOptions().locale
+
+      return hourCycle(locale) === 12
+    },
 
             metricPayload() {
                 const payload = {
